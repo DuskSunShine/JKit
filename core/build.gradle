@@ -1,0 +1,50 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    api 'com.scwang.smart:refresh-layout-kernel:2.0.1'      //核心必须依赖
+    api 'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
+    api 'com.scwang.smart:refresh-header-material:2.0.1'    //谷歌刷新头
+    api 'com.scwang.smart:refresh-footer-classics:2.0.1'    //经典加载
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4'
+
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    api 'com.google.code.gson:gson:2.8.6'
+    api 'com.squareup.retrofit2:converter-gson:2.6.0'
+    api'com.squareup.retrofit2:converter-scalars:2.4.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
+    api 'top.zibin:Luban:1.1.8'
+}
