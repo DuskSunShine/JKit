@@ -22,7 +22,7 @@ public abstract class BaseActivity<VB extends ViewBinding, VM extends BaseViewMo
 
     protected VM mViewModel;
     protected VB mViewBinding;
-    private LoadingView loadingView;
+    protected LoadingView loadingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
