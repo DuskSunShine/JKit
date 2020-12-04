@@ -1,13 +1,9 @@
 package com.scy.core.base;
 
-import android.text.TextUtils;
-
 import com.scy.core.common.JKit;
 import com.scy.core.common.JKitToast;
 import com.scy.core.exception.ParamException;
-
 import org.jetbrains.annotations.NotNull;
-
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.ResourceObserver;
 import retrofit2.HttpException;

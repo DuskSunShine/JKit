@@ -22,7 +22,6 @@ import retrofit2.Retrofit;
  */
 public class Api extends ApiFactory {
 
-
     @Override
     protected HttpHelper getHttpHelper() {
                 HttpHelper build = new HttpHelper.Builder()

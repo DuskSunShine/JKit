@@ -109,10 +109,10 @@ public class HttpHelper implements ApiCreator {
         public Builder() {
         }
 
-        Builder(HttpHelper httpAgent) {
-            this.retrofit = httpAgent.retrofit;
-            this.okHttpClient = httpAgent.okHttpClient;
-            this.hostClass = httpAgent.hostClass;
+        Builder(HttpHelper httpHelper) {
+            this.retrofit = httpHelper.retrofit;
+            this.okHttpClient = httpHelper.okHttpClient;
+            this.hostClass = httpHelper.hostClass;
         }
 
         public HttpHelper build() {
