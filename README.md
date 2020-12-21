@@ -1,5 +1,7 @@
 ### JKit Java版本快速开发框架   [![](https://jitpack.io/v/DuskSunShine/JKit.svg)](https://jitpack.io/#DuskSunShine/JKit)
 
+### 待完善功能 压缩失败监听，上传时的文件类型判断是图片进行压缩，文档补全，cookie持久化等设置
+
 #### 1.使用Rxjava2 + Retrofit2 + ViewBinding + LiveData + ViewModel +AndroidX +Luban封装的轻量MVVM开发框架。
 
 #### 2.主要功能
