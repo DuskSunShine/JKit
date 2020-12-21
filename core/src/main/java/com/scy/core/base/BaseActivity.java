@@ -35,7 +35,7 @@ public abstract class BaseActivity<VB extends ViewBinding, VM extends BaseViewMo
         }
         setContentView(mViewBinding.getRoot());
         loadingView=createLoadingView();
-        ActivityManager.getInstance().addActivity(this);
+        ActivityManager.get().addActivity(this);
         mViewModel = ClassKit.getViewModel(this);
         subscribeBaseEvent();
         preActive();
@@ -46,7 +46,13 @@ public abstract class BaseActivity<VB extends ViewBinding, VM extends BaseViewMo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityManager.getInstance().remove(this);
+        ActivityManager.get().remove(this);
+    }
+
+    @Override
+    public void finish() {
+        ActivityManager.get().remove(this);
+        super.finish();
     }
 
     /**

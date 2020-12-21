@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.scy.core.observer.DataObserver;
 import com.scy.core.base.BaseResponse;
 import com.scy.core.base.BaseViewModel;
-import com.scy.core.base.DownLoadObserver;
+import com.scy.core.observer.DownLoadObserver;
 import com.scy.core.common.JKit;
 import com.scy.core.common.Transformer;
 import com.scy.core.http.Param;

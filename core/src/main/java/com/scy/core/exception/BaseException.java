@@ -1,5 +1,7 @@
 package com.scy.core.exception;
 
+import android.text.TextUtils;
+
 import com.scy.core.BuildConfig;
 
 /**
@@ -15,7 +17,7 @@ public abstract class BaseException extends RuntimeException {
     private final String errorMessage;
 
     public BaseException(int errorCode, String errorMessage) {
-        super(BuildConfig.LIBRARY_PACKAGE_NAME +":"+errorMessage);
+        super(BuildConfig.LIBRARY_PACKAGE_NAME +"{errorCode=:"+errorCode+",errorMessage="+(TextUtils.isEmpty(errorMessage)?"":errorMessage)+"}");
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }

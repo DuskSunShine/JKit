@@ -1,6 +1,8 @@
-package com.scy.core.base;
+package com.scy.core.observer;
 
 import android.text.TextUtils;
+
+import com.scy.core.base.BaseViewModel;
 import com.scy.core.common.JKit;
 import com.scy.core.common.JKitToast;
 import com.scy.core.common.Transformer;
@@ -64,7 +66,6 @@ public abstract class DownLoadObserver extends ResourceObserver<ResponseBody> {
         Observable.create(new ObservableOnSubscribe<Progress>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Progress> emitter) {
-                start();
                 if (supportBreakPoint()) {
                     breakPointSaveFile(responseBody, emitter);
                 } else {
@@ -75,7 +76,7 @@ public abstract class DownLoadObserver extends ResourceObserver<ResponseBody> {
                 .subscribe(new Observer<Progress>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-
+                        start();
                     }
 
                     @Override

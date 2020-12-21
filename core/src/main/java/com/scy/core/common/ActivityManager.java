@@ -2,11 +2,19 @@ package com.scy.core.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-
+/**
+ * activity stack 手动管理类
+ * 可以在{@link Activity#onCreate(Bundle)}调用{@link ActivityManager#addActivity(Activity)}
+ * 加入栈。<br>
+ * 需要注意的是在{@link Activity#finish()}方法中调用{@link ActivityManager#remove(Activity)}
+ * 移除栈。因为finish调用并不会立即调用{@link Activity#onDestroy()}方法
+ */
 public class ActivityManager {
 
     /**
@@ -28,7 +36,7 @@ public class ActivityManager {
     /**
      * Single Instance
      */
-    public static ActivityManager getInstance() {
+    public static ActivityManager get() {
         if (mAppManager == null) {
             synchronized (ActivityManager.class) {
                 if (mAppManager == null) {
@@ -53,8 +61,7 @@ public class ActivityManager {
      * Get to the top Activity
      */
     public Activity getTopActivity() {
-        Activity activity = mActivityStack.lastElement();
-        return activity;
+        return mActivityStack.lastElement();
     }
 
     /**
