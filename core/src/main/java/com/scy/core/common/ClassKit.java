@@ -3,6 +3,7 @@ package com.scy.core.common;
 import android.view.LayoutInflater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
@@ -11,6 +12,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Objects;
 
 /**
@@ -22,14 +24,23 @@ import java.util.Objects;
 public class ClassKit {
 
     /**
-     *通过反射 获取当前类的父类的泛型 (VB) 对应 ViewBinding类
+     *通过反射 获取当前类的父类的泛型 (VB) 对应 ViewBinding类,这里通过循环寻找是为了能让Activity有多个灵活泛型
      * @param appCompatActivity activity
      * @param <VB> 当前类的vb
      * @return  当前类的vb
      */
-    public static <VB extends ViewBinding>  VB getViewBinding(AppCompatActivity appCompatActivity){
+    public static <VB extends ViewBinding>  VB getViewBinding(FragmentActivity appCompatActivity){
         try {
-            Class<?> aClass = (Class<?>) ((ParameterizedType) Objects.requireNonNull(appCompatActivity.getClass().getGenericSuperclass())).getActualTypeArguments()[0];
+            ParameterizedType parameterizedType= (ParameterizedType) appCompatActivity.getClass().getGenericSuperclass();
+            Type[] types = parameterizedType.getActualTypeArguments();
+            Class<?> aClass = null;
+            for (Type type:types) {
+                //如果是继承viewBinding
+                Class<?> clazz= (Class<?>) type;
+                if (clazz.isAssignableFrom(ViewBinding.class)){
+                    aClass=clazz;
+                }
+            }
             Method method = aClass.getDeclaredMethod("inflate", LayoutInflater.class);
             return (VB) method.invoke(aClass, appCompatActivity.getLayoutInflater());
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -48,7 +59,16 @@ public class ClassKit {
      */
     public static <VB extends ViewBinding>  VB getViewBinding(Fragment fragment){
         try {
-            Class<?> aClass = (Class<?>) ((ParameterizedType) Objects.requireNonNull(fragment.getClass().getGenericSuperclass())).getActualTypeArguments()[0];
+            ParameterizedType parameterizedType= (ParameterizedType) fragment.getClass().getGenericSuperclass();
+            Type[] types = parameterizedType.getActualTypeArguments();
+            Class<?> aClass = null;
+            for (Type type:types) {
+                //如果是继承viewBinding
+                Class<?> clazz= (Class<?>) type;
+                if (clazz.isAssignableFrom(ViewBinding.class)){
+                    aClass=clazz;
+                }
+            }
             Method method = aClass.getDeclaredMethod("inflate", LayoutInflater.class);
             return (VB) method.invoke(aClass, fragment.getLayoutInflater());
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -63,8 +83,18 @@ public class ClassKit {
      * @param <VM> 当前类的vm
      * @return  当前类的vm
      */
-    public static <VM extends ViewModel> VM getViewModel(AppCompatActivity appCompatActivity){
-        Class<VM> aClass = (Class<VM>) ((ParameterizedType) Objects.requireNonNull(appCompatActivity.getClass().getGenericSuperclass())).getActualTypeArguments()[1];
+    public static <VM extends ViewModel> VM getViewModel(FragmentActivity appCompatActivity){
+        ParameterizedType parameterizedType= (ParameterizedType) appCompatActivity.getClass().getGenericSuperclass();
+        Type[] types = parameterizedType.getActualTypeArguments();
+        Class<VM> aClass = null;
+        for (Type type:types) {
+            //如果是继承viewBinding
+            Class<?> clazz= (Class<?>) type;
+            if (clazz.isAssignableFrom(ViewBinding.class)){
+                aClass= (Class<VM>) clazz;
+            }
+        }
+//        Class<VM> aClass = (Class<VM>) ((ParameterizedType) appCompatActivity.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         return new ViewModelProvider(appCompatActivity).get(aClass);
     }
 
@@ -75,7 +105,17 @@ public class ClassKit {
      * @return  当前类的vm
      */
     public static <VM extends ViewModel> VM getViewModel(Fragment fragment){
-        Class<VM> aClass = (Class<VM>) ((ParameterizedType) Objects.requireNonNull(fragment.getClass().getGenericSuperclass())).getActualTypeArguments()[1];
+        ParameterizedType parameterizedType= (ParameterizedType) fragment.getClass().getGenericSuperclass();
+        Type[] types = parameterizedType.getActualTypeArguments();
+        Class<VM> aClass = null;
+        for (Type type:types) {
+            //如果是继承viewBinding
+            Class<?> clazz= (Class<?>) type;
+            if (clazz.isAssignableFrom(ViewBinding.class)){
+                aClass= (Class<VM>) clazz;
+            }
+        }
+//        Class<VM> aClass = (Class<VM>) ((ParameterizedType) appCompatActivity.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         return new ViewModelProvider(fragment).get(aClass);
     }
 
