@@ -32,6 +32,7 @@ public abstract class BaseViewModel extends AndroidViewModel implements ViewEven
 
     public BaseViewModel(@NonNull Application application) {
         super(application);
+        subscribeEvent();
     }
 
     @Override
@@ -81,4 +82,9 @@ public abstract class BaseViewModel extends AndroidViewModel implements ViewEven
     public Set<String> getCurrentHttpTag() {
         return currentHttpTag;
     }
+
+    /**
+     * 注册交互事件，如列表刷新等
+     */
+    protected abstract void subscribeEvent();
 }
