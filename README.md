@@ -4,6 +4,14 @@
 
 #### 1.使用Rxjava2 + Retrofit2 + ViewBinding + LiveData + ViewModel +AndroidX +Luban封装的轻量MVVM开发框架。
 
+#### 新增功能
+
+- TODO 上传时的文件类型判断是图片进行压缩，cookie持久化等设置...
+- 新增多baseUrl的适配，ApiCreator增加方法，可适应app内拥有多个baseUrl的场景。
+  当有多个baseUrl需要使用HttpHelper createApi(Class<T> clazz,@NonNull String baseUrl)方法创建新的网络请求代理。
+- ClassKit 优化为可寻找二级父类的泛型参数，增加获取ViewBinding,ViewModel的灵活性，可让Activity/Fragment多级继承，并可让子类拥有自己的泛型。
+
+
 #### 2.主要功能
 
 - 目前主要是封装网络请求，基本满足常规的请求（单图片/图片+参数上传，断点下载/普通下载）
