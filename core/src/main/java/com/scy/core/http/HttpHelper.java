@@ -1,5 +1,9 @@
 package com.scy.core.http;
 
+import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+
 import com.scy.core.common.ClassKit;
 import com.scy.core.interfaces.ApiCreator;
 import java.util.HashMap;
@@ -25,7 +29,7 @@ public class HttpHelper implements ApiCreator {
     /**
      * 缓存retrofit针对同一个相同的ApiService不会重复创建retrofit对象
      */
-    private static HashMap<String, Object> apiServiceCache;
+    private HashMap<String, Object> apiServiceCache;
     private Retrofit retrofit;
     private OkHttpClient okHttpClient;
     /**
@@ -48,6 +52,19 @@ public class HttpHelper implements ApiCreator {
         if (apiCache==null){
             T api = retrofit.create(clazz);
             apiServiceCache.put(clazz.getName(),api);
+            return api;
+        }
+        return apiCache;
+    }
+
+    @Override
+    public <T> T createApi(Class<T> clazz,@NonNull String baseUrl) {
+        Objects.requireNonNull(retrofit, "Retrofit未创建.");
+        T apiCache = (T) apiServiceCache.get(baseUrl);
+        if (apiCache==null) {
+            Retrofit retrofit = this.retrofit.newBuilder().baseUrl(baseUrl).build();
+            T api = retrofit.create(clazz);
+            apiServiceCache.put(baseUrl, api);
             return api;
         }
         return apiCache;

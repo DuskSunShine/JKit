@@ -1,5 +1,7 @@
 package com.scy.core.interfaces;
 
+import androidx.annotation.NonNull;
+
 /**
  * @author: SCY
  * @date: 2020/11/24   18:01
@@ -16,5 +18,12 @@ public interface ApiCreator {
      */
       <T> T createApi(Class<T> clazz);
 
-
+    /**
+     *如果有多个baseUrl
+     * @param clazz 相应api service的class
+     * @param <T>  api service 的泛型
+     * @param baseUrl baseUrl
+     * @return  相应的接口api service
+     */
+    <T> T createApi(Class<T> clazz,@NonNull String baseUrl);
 }

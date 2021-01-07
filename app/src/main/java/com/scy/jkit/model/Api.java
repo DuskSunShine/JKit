@@ -1,5 +1,7 @@
 package com.scy.jkit.model;
 
+import androidx.annotation.NonNull;
+
 import com.scy.core.http.ApiFactory;
 import com.scy.core.http.GetParametersInterceptor;
 import com.scy.core.http.HeadersInterceptor;
@@ -24,7 +26,7 @@ public class Api extends ApiFactory {
 
     @Override
     protected HttpHelper getHttpHelper() {
-                HttpHelper build = new HttpHelper.Builder()
+        HttpHelper build = new HttpHelper.Builder()
                 .setHost(Host.class)
                 .initConfig().build();
         //重新构建http并保留原属性
@@ -33,14 +35,15 @@ public class Api extends ApiFactory {
                 .addInterceptor(new HeadersInterceptor() {
                     @Override
                     protected void addHeaders(Request.Builder builder) {
-                        builder.addHeader("Authorization","A 557c26e8964cd6cf4ec9e55a292a1b9c");
+                        builder.addHeader("Authorization", "A 557c26e8964cd6cf4ec9e55a292a1b9c");
                     }
                 }).addInterceptor(new PostParametersInterceptor() {
                     @Override
                     protected void addFormBody(FormBody.Builder builder) {
+                        long l = System.currentTimeMillis() / 1000;
                         builder.add("os", "A")
                                 .add("sign", "60b8814fa0db2f676812a827d2dcce384578d79f")
-                                .add("timestamp", "1606460999")
+                                .add("timestamp", l+"")
                                 .add("client_type", "manage")
                                 .add("ver", "4.6.0")
                                 .add("channel", "yzgong");
@@ -48,25 +51,27 @@ public class Api extends ApiFactory {
 
                     @Override
                     protected void addMultipartBody(MultipartBody.Builder builder) {
+                        long l = System.currentTimeMillis() / 1000;
                         builder.addFormDataPart("os", "A")
                                 .addFormDataPart("sign", "60b8814fa0db2f676812a827d2dcce384578d79f")
-                                .addFormDataPart("timestamp", "1606460999")
+                                .addFormDataPart("timestamp", l+"")
                                 .addFormDataPart("client_type", "manage")
                                 .addFormDataPart("ver", "4.6.0")
                                 .addFormDataPart("channel", "yzgong");
                     }
                 })
-//                .addInterceptor(new GetParametersInterceptor() {
-//                    @Override
-//                    protected void addQueryParameters(HttpUrl.Builder builder) {
-//                        builder.addQueryParameter("os", "A")
-//                                .addQueryParameter("sign", "60b8814fa0db2f676812a827d2dcce384578d79f")
-//                                .addQueryParameter("timestamp", "1606460999")
-//                                .addQueryParameter("client_type", "manage")
-//                                .addQueryParameter("ver", "4.6.0")
-//                                .addQueryParameter("channel", "yzgong");
-//                    }
-//                })
+                .addInterceptor(new GetParametersInterceptor() {
+                    @Override
+                    protected void addQueryParameters(HttpUrl.Builder builder) {
+                        long l = System.currentTimeMillis() / 1000;
+                        builder.addQueryParameter("os", "A")
+                                .addQueryParameter("sign", "60b8814fa0db2f676812a827d2dcce384578d79f")
+                                .addQueryParameter("timestamp", l+"")
+                                .addQueryParameter("client_type", "manage")
+                                .addQueryParameter("ver", "4.6.0")
+                                .addQueryParameter("channel", "yzgong");
+                    }
+                })
                 .build();
         //重新构建retrofit并保留原属性
         Retrofit retrofit = builder.getRetrofit().newBuilder()
@@ -82,12 +87,17 @@ public class Api extends ApiFactory {
         return httpHelper.createApi(clazz);
     }
 
+    @Override
+    public <T> T createApi(Class<T> clazz,@NonNull String baseUrl) {
+        return httpHelper.createApi(clazz, baseUrl);
+    }
 
-    public static ApiFactory get(){
-        if (apiFactory==null){
-            synchronized (Api.class){
-                if (apiFactory==null){
-                    apiFactory=new Api();
+
+    public static ApiFactory get() {
+        if (apiFactory == null) {
+            synchronized (Api.class) {
+                if (apiFactory == null) {
+                    apiFactory = new Api();
 
                 }
             }
