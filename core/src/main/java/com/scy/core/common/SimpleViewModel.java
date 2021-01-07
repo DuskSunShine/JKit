@@ -15,4 +15,9 @@ public class SimpleViewModel extends BaseViewModel {
     public SimpleViewModel(@NonNull Application application) {
         super(application);
     }
+
+    @Override
+    protected void subscribeEvent() {
+
+    }
 }
