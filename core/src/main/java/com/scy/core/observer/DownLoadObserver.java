@@ -90,7 +90,7 @@ public abstract class DownLoadObserver extends ResourceObserver<ResponseBody> {
                         }
                         e.printStackTrace();
                         if (JKit.isDebug()) {
-                            JKitToast.error(e.getMessage());
+                            JKitToast.error(e.getMessage(),4000);
                         }
                         failed(e);
                     }
@@ -120,7 +120,7 @@ public abstract class DownLoadObserver extends ResourceObserver<ResponseBody> {
         }
         e.printStackTrace();
         if (JKit.isDebug()) {
-            JKitToast.error(e.getMessage());
+            JKitToast.error(e.getMessage(),4000);
         }
     }
 

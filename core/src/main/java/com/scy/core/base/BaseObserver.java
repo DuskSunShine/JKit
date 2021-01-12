@@ -51,7 +51,7 @@ public abstract class BaseObserver<T> extends ResourceObserver<T> {
         } catch (Exception e) {
             e.printStackTrace();
             if (JKit.isDebug()) {
-                JKitToast.error(e.getMessage());
+                JKitToast.error(e.getMessage(),4000);
             }
         }
     }
@@ -75,7 +75,7 @@ public abstract class BaseObserver<T> extends ResourceObserver<T> {
         e.printStackTrace();
         onFailure(e);
         if (JKit.isDebug()) {
-            JKitToast.error(e.getMessage());
+            JKitToast.error(e.getMessage(),4000);
         }
     }
 

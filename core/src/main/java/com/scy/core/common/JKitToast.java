@@ -36,6 +36,25 @@ public class JKitToast {
 
     }
 
+    public static synchronized void success(String success,int duration) {
+        try {
+            if (toast!=null){
+                toast.cancel();
+            }
+            toast =new Toast(JKit.getmApplication());
+            View view = LayoutInflater.from(JKit.getmApplication()).inflate(R.layout.toast_layout, null);
+            ((ImageView)view.findViewById(R.id.image)).setImageResource(R.drawable.sure_white);
+            ((TextView)view.findViewById(R.id.toast_tv)).setText(success);
+            toast.setView(view);
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.setDuration(duration);
+            toast.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     /**
      * toast 短显示
      * @param err       错误提示
@@ -51,6 +70,30 @@ public class JKitToast {
             ((TextView)view.findViewById(R.id.toast_tv)).setText(err);
             toast.setView(view);
             toast.setGravity(Gravity.CENTER,0,0);
+            toast.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /**
+     * toast 短显示
+     * @param err       错误提示
+     */
+    public static synchronized void error(String err,int duration) {
+        try {
+            if (toast!=null){
+                toast.cancel();
+            }
+            toast =new Toast(JKit.getmApplication());
+            View view = LayoutInflater.from(JKit.getmApplication()).inflate(R.layout.toast_layout, null);
+            ((ImageView)view.findViewById(R.id.image)).setImageResource(R.drawable.waring_white);
+            ((TextView)view.findViewById(R.id.toast_tv)).setText(err);
+            toast.setView(view);
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.setDuration(duration);
             toast.show();
         } catch (Exception e) {
             e.printStackTrace();
