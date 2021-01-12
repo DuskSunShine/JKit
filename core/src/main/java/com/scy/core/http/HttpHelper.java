@@ -1,9 +1,6 @@
 package com.scy.core.http;
 
-import android.text.TextUtils;
-
 import androidx.annotation.NonNull;
-
 import com.scy.core.common.ClassKit;
 import com.scy.core.interfaces.ApiCreator;
 import java.util.HashMap;

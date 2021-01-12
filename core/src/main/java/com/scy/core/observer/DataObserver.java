@@ -1,17 +1,11 @@
 package com.scy.core.observer;
 
 import android.text.TextUtils;
-
 import com.scy.core.base.BaseObserver;
 import com.scy.core.base.BaseResponse;
 import com.scy.core.base.BaseViewModel;
-import com.scy.core.common.JKit;
-import com.scy.core.common.JKitToast;
 import com.scy.core.exception.ParamException;
-import org.jetbrains.annotations.NotNull;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.ResourceObserver;
-import retrofit2.HttpException;
 
 /**
  * @author: SCY

@@ -1,7 +1,6 @@
 package com.scy.core.observer;
 
 import android.text.TextUtils;
-
 import com.scy.core.base.BaseViewModel;
 import com.scy.core.common.JKit;
 import com.scy.core.common.JKitToast;
