@@ -38,6 +38,11 @@ public class MainViewModel extends BaseViewModel {
         super(application);
     }
 
+    @Override
+    protected void subscribeEvent() {
+
+    }
+
     public final MutableLiveData<M> mData = new MutableLiveData<>();
     public final MutableLiveData<Img> image = new MutableLiveData<>();
     public final MutableLiveData<Float> progress = new MutableLiveData<>();

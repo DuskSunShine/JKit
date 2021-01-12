@@ -9,11 +9,19 @@ import com.scy.core.http.HttpHelper;
 import com.scy.core.http.PostParametersInterceptor;
 import com.scy.jkit.Host;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okio.BufferedSource;
 import retrofit2.Retrofit;
 
 /**
@@ -32,6 +40,24 @@ public class Api extends ApiFactory {
         //重新构建http并保留原属性
         HttpHelper.Builder builder = build.newBuilder();
         OkHttpClient okHttpClient = builder.getOkHttpClient().newBuilder()
+//                .addInterceptor(new Interceptor() {
+//                    @Override
+//                    public Response intercept(Chain chain) throws IOException {
+//                        //测试服务端数据结构和预计不一致的情况是否捕获了异常
+//                        Request request = chain.request();
+//                        Response response = chain.proceed(request);
+//                        ResponseBody body = response.body();
+//                        BufferedSource source = body.source();
+//                        //    {
+//                        //        "code": 10035,
+//                        //            "msg": "\u767b\u5f55\u5931\u6548",
+//                        //            "result": {},
+//                        //        "time": 1610442846
+//                        //    }
+//                        source.getBuffer().writeString("{\"code\": 10035,\"msg\": \"\\u767b\\u5f55\\u5931\\u6548\",\"result\": [],\"time\": 1610442846}", StandardCharsets.UTF_8);
+//                        return response;
+//                    }
+//                })
                 .addInterceptor(new HeadersInterceptor() {
                     @Override
                     protected void addHeaders(Request.Builder builder) {
@@ -43,7 +69,7 @@ public class Api extends ApiFactory {
                         long l = System.currentTimeMillis() / 1000;
                         builder.add("os", "A")
                                 .add("sign", "60b8814fa0db2f676812a827d2dcce384578d79f")
-                                .add("timestamp", l+"")
+                                .add("timestamp", l + "")
                                 .add("client_type", "manage")
                                 .add("ver", "4.6.0")
                                 .add("channel", "yzgong");
@@ -54,7 +80,7 @@ public class Api extends ApiFactory {
                         long l = System.currentTimeMillis() / 1000;
                         builder.addFormDataPart("os", "A")
                                 .addFormDataPart("sign", "60b8814fa0db2f676812a827d2dcce384578d79f")
-                                .addFormDataPart("timestamp", l+"")
+                                .addFormDataPart("timestamp", l + "")
                                 .addFormDataPart("client_type", "manage")
                                 .addFormDataPart("ver", "4.6.0")
                                 .addFormDataPart("channel", "yzgong");
@@ -66,7 +92,7 @@ public class Api extends ApiFactory {
                         long l = System.currentTimeMillis() / 1000;
                         builder.addQueryParameter("os", "A")
                                 .addQueryParameter("sign", "60b8814fa0db2f676812a827d2dcce384578d79f")
-                                .addQueryParameter("timestamp", l+"")
+                                .addQueryParameter("timestamp", l + "")
                                 .addQueryParameter("client_type", "manage")
                                 .addQueryParameter("ver", "4.6.0")
                                 .addQueryParameter("channel", "yzgong");
@@ -88,7 +114,7 @@ public class Api extends ApiFactory {
     }
 
     @Override
-    public <T> T createApi(Class<T> clazz,@NonNull String baseUrl) {
+    public <T> T createApi(Class<T> clazz, @NonNull String baseUrl) {
         return httpHelper.createApi(clazz, baseUrl);
     }
 
