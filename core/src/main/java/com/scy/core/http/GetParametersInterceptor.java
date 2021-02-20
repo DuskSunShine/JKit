@@ -1,5 +1,7 @@
 package com.scy.core.http;
 
+import android.text.TextUtils;
+
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import okhttp3.HttpUrl;
@@ -19,12 +21,16 @@ public abstract class GetParametersInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request oldRequest = chain.request();
-        HttpUrl.Builder builder = oldRequest.url().newBuilder();
-        addQueryParameters(builder);
-        Request newRequest = oldRequest.newBuilder()
-                .url(builder.build())
-                .build();
-        return chain.proceed(newRequest);
+        String method = oldRequest.method();
+        if (!TextUtils.isEmpty(method) && method.equals("GET")) {
+            HttpUrl.Builder builder = oldRequest.url().newBuilder();
+            addQueryParameters(builder);
+            Request newRequest = oldRequest.newBuilder()
+                    .url(builder.build())
+                    .build();
+            return chain.proceed(newRequest);
+        }
+        return chain.proceed(oldRequest);
     }
 
     /***

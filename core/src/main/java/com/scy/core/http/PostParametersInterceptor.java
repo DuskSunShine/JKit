@@ -55,6 +55,14 @@ public abstract class PostParametersInterceptor implements Interceptor {
                 newRequest = oldRequest.newBuilder()
                         .post(newMultipartBody.build())
                         .build();
+            }else {
+                //没有@FormUrlEncoded注解，不需要额外参数，只需要公共参数
+                FormBody.Builder newFormBody = new FormBody.Builder();
+                //添加公共参数
+                addFormBody(newFormBody);
+                newRequest = oldRequest.newBuilder()
+                        .post(newFormBody.build())
+                        .build();
             }
         }
         return chain.proceed(newRequest == null ? oldRequest : newRequest);
