@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
+
+import com.scy.core.base.BaseActivity;
 import com.scy.core.http.BaseUrl;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -39,9 +41,9 @@ public class ClassKit {
 //            e.printStackTrace();
 //        }
         try {
-            List<Type> typeList=new ArrayList<>();
+            List<Type> typeList = new ArrayList<>();
             //获取父类，包括父类的泛型参数
-            ParameterizedType parameterizedType= (ParameterizedType) appCompatActivity.getClass().getGenericSuperclass();
+            ParameterizedType parameterizedType = (ParameterizedType) appCompatActivity.getClass().getGenericSuperclass();
             Type[] actualTypeArguments1 = parameterizedType.getActualTypeArguments();
             //父类的父类泛型
             Class<?> superclass = appCompatActivity.getClass().getSuperclass();
@@ -50,18 +52,19 @@ public class ClassKit {
                 superclassSuperclass = superclass.getSuperclass();
             }
             //父类的父类是Android SDK的类，就绕过获取泛型参数
-            if (superclassSuperclass != null && !superclassSuperclass.getName().equals(AppCompatActivity.class.getName())){
-                ParameterizedType genericSuperclass = (ParameterizedType) superclass.getGenericSuperclass();
+            if (superclassSuperclass != null && !superclassSuperclass.getName().equals(BaseActivity.class.getName())) {
+                Type type = superclass.getGenericSuperclass();
+                ParameterizedType genericSuperclass = (ParameterizedType) type;
                 Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
                 typeList.addAll(Arrays.asList(actualTypeArguments));
             }
             typeList.addAll(Arrays.asList(actualTypeArguments1));
             Class<?> aClass = null;
-            for (Type type:typeList) {
+            for (Type type : typeList) {
                 //如果是继承viewBinding
-                Class<?> clazz= (Class<?>) type;
-                if (ViewBinding.class.isAssignableFrom(clazz)){
-                    aClass=clazz;
+                Class<?> clazz = (Class<?>) type;
+                if (ViewBinding.class.isAssignableFrom(clazz)) {
+                    aClass = clazz;
                     break;
                 }
             }
@@ -90,9 +93,9 @@ public class ClassKit {
 //            e.printStackTrace();
 //        }
         try {
-            List<Type> typeList=new ArrayList<>();
+            List<Type> typeList = new ArrayList<>();
             //获取父类，包括父类的泛型参数
-            ParameterizedType parameterizedType= (ParameterizedType) fragment.getClass().getGenericSuperclass();
+            ParameterizedType parameterizedType = (ParameterizedType) fragment.getClass().getGenericSuperclass();
             Type[] actualTypeArguments1 = parameterizedType.getActualTypeArguments();
             //父类的父类泛型
             Class<?> superclass = fragment.getClass().getSuperclass();
@@ -101,18 +104,18 @@ public class ClassKit {
                 superclassSuperclass = superclass.getSuperclass();
             }
             //父类的父类是Android SDK的类，就绕过获取泛型参数
-            if (superclassSuperclass != null && !superclassSuperclass.getName().equals(Fragment.class.getName())){
+            if (superclassSuperclass != null && !superclassSuperclass.getName().equals(Fragment.class.getName())) {
                 ParameterizedType genericSuperclass = (ParameterizedType) superclass.getGenericSuperclass();
                 Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
                 typeList.addAll(Arrays.asList(actualTypeArguments));
             }
             typeList.addAll(Arrays.asList(actualTypeArguments1));
             Class<?> aClass = null;
-            for (Type type:typeList) {
+            for (Type type : typeList) {
                 //如果是继承viewBinding
-                Class<?> clazz= (Class<?>) type;
-                if (ViewBinding.class.isAssignableFrom(clazz)){
-                    aClass=clazz;
+                Class<?> clazz = (Class<?>) type;
+                if (ViewBinding.class.isAssignableFrom(clazz)) {
+                    aClass = clazz;
                     break;
                 }
             }
@@ -131,8 +134,8 @@ public class ClassKit {
      * @return  当前类的vm
      */
     public static <VM extends ViewModel> VM getViewModel(AppCompatActivity appCompatActivity){
-        List<Type> typeList=new ArrayList<>();
-        ParameterizedType parameterizedType= (ParameterizedType) appCompatActivity.getClass().getGenericSuperclass();
+        List<Type> typeList = new ArrayList<>();
+        ParameterizedType parameterizedType = (ParameterizedType) appCompatActivity.getClass().getGenericSuperclass();
         Type[] actualTypeArguments1 = parameterizedType.getActualTypeArguments();
         //父类的父类泛型
         Class<?> superclass = appCompatActivity.getClass().getSuperclass();
@@ -141,18 +144,18 @@ public class ClassKit {
             superclassSuperclass = superclass.getSuperclass();
         }
         //父类的父类是Android SDK的类，就绕过获取泛型参数
-        if (superclassSuperclass != null && !superclassSuperclass.getName().equals(AppCompatActivity.class.getName())){
+        if (superclassSuperclass != null && !superclassSuperclass.getName().equals(BaseActivity.class.getName())) {
             ParameterizedType genericSuperclass = (ParameterizedType) superclass.getGenericSuperclass();
             Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
             typeList.addAll(Arrays.asList(actualTypeArguments));
         }
         typeList.addAll(Arrays.asList(actualTypeArguments1));
         Class<VM> aClass = null;
-        for (Type type:typeList) {
+        for (Type type : typeList) {
             //如果是继承viewBinding
-            Class<VM> clazz= (Class<VM>) type;
-            if (ViewModel.class.isAssignableFrom(clazz)){
-                aClass=clazz;
+            Class<VM> clazz = (Class<VM>) type;
+            if (ViewModel.class.isAssignableFrom(clazz)) {
+                aClass = clazz;
                 break;
             }
         }
@@ -167,8 +170,8 @@ public class ClassKit {
      * @return  当前类的vm
      */
     public static <VM extends ViewModel> VM getViewModel(Fragment fragment){
-        List<Type> typeList=new ArrayList<>();
-        ParameterizedType parameterizedType= (ParameterizedType) fragment.getClass().getGenericSuperclass();
+        List<Type> typeList = new ArrayList<>();
+        ParameterizedType parameterizedType = (ParameterizedType) fragment.getClass().getGenericSuperclass();
         Type[] actualTypeArguments1 = parameterizedType.getActualTypeArguments();
         //父类的父类泛型
         Class<?> superclass = fragment.getClass().getSuperclass();
@@ -177,18 +180,18 @@ public class ClassKit {
             superclassSuperclass = superclass.getSuperclass();
         }
         //父类的父类是Android SDK的类，就绕过获取泛型参数
-        if (superclassSuperclass != null && !superclassSuperclass.getName().equals(Fragment.class.getName())){
+        if (superclassSuperclass != null && !superclassSuperclass.getName().equals(Fragment.class.getName())) {
             ParameterizedType genericSuperclass = (ParameterizedType) superclass.getGenericSuperclass();
             Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
             typeList.addAll(Arrays.asList(actualTypeArguments));
         }
         typeList.addAll(Arrays.asList(actualTypeArguments1));
         Class<VM> aClass = null;
-        for (Type type:typeList) {
+        for (Type type : typeList) {
             //如果是继承viewBinding
-            Class<VM> clazz= (Class<VM>) type;
-            if (ViewModel.class.isAssignableFrom(clazz)){
-                aClass=clazz;
+            Class<VM> clazz = (Class<VM>) type;
+            if (ViewModel.class.isAssignableFrom(clazz)) {
+                aClass = clazz;
                 break;
             }
         }
