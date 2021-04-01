@@ -13,6 +13,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
+
 /**
  * @author: SCY
  * @date: 2020/11/19   10:33
@@ -75,6 +77,9 @@ public final class JKit extends ContentProvider {
         mApplication= (Application) getContext().getApplicationContext();
         targetDir= mApplication.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
         cacheDir= mApplication.getExternalCacheDir().getAbsolutePath();
+        LiveEventBus.config().autoClear(true).enableLogger(debug)
+                .lifecycleObserverAlwaysActive(false)
+                .setContext(mApplication);
         return true;
     }
 

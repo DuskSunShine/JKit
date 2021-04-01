@@ -22,6 +22,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         JKit.log("onClick");
         value++;
         LiveBus.get().sendEvent("BUS",value);
+
     }
 
 
