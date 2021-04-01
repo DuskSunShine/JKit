@@ -1,14 +1,15 @@
 package com.scy.core.common;
 
 import android.view.LayoutInflater;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
-import com.scy.core.base.BaseActivity;
 import com.scy.core.http.BaseUrl;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -52,7 +53,7 @@ public class ClassKit {
                 superclassSuperclass = superclass.getSuperclass();
             }
             //父类的父类是Android SDK的类，就绕过获取泛型参数
-            if (superclassSuperclass != null && !superclassSuperclass.getName().equals(BaseActivity.class.getName())) {
+            if (superclassSuperclass != null && !superclassSuperclass.getName().equals(AppCompatActivity.class.getName())) {
                 Type type = superclass.getGenericSuperclass();
                 ParameterizedType genericSuperclass = (ParameterizedType) type;
                 Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
@@ -144,7 +145,7 @@ public class ClassKit {
             superclassSuperclass = superclass.getSuperclass();
         }
         //父类的父类是Android SDK的类，就绕过获取泛型参数
-        if (superclassSuperclass != null && !superclassSuperclass.getName().equals(BaseActivity.class.getName())) {
+        if (superclassSuperclass != null && !superclassSuperclass.getName().equals(AppCompatActivity.class.getName())) {
             ParameterizedType genericSuperclass = (ParameterizedType) superclass.getGenericSuperclass();
             Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
             typeList.addAll(Arrays.asList(actualTypeArguments));

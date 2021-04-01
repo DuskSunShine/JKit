@@ -2,19 +2,26 @@ package com.scy.jkit.view;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
+
 import com.scy.core.base.BaseActivity;
+import com.scy.core.common.JKit;
 import com.scy.core.common.JKitToast;
+import com.scy.core.common.LiveBus;
 import com.scy.jkit.databinding.ActivityMainBinding;
 import com.scy.jkit.viewmodel.MainViewModel;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> {
 
-
+    private int value;
     @Override
     public void onClick(View view) {
-
+        JKit.log("onClick");
+        value++;
+        LiveBus.get().sendEvent("BUS",value);
     }
 
 
@@ -29,6 +36,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         mViewBinding.button2.setOnClickListener(view -> mViewModel.downLoad());
         mViewBinding.button3.setOnClickListener(view -> mViewModel.disposeSubscribe("download"));
         mViewBinding.button4.setOnClickListener(view -> mViewModel.get());
+        mViewBinding.main2.setOnClickListener(view -> startActivity(new Intent(this,MainActivity2.class)));
     }
 
     @Override
@@ -44,6 +52,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         });
         mViewModel.progress.observe(this, aFloat -> mViewBinding.text.setText(aFloat.intValue() + "%"));
         mViewModel.get.observe(this, s -> mViewBinding.text.setText(s));
+        LiveBus.get().subscribe("BUS")
+                .observe(this, o -> {
+                    int v= (int) o;
+                    JKit.log("接收11111:"+v);
+                });
+        LiveBus.get().subscribe("BUS")
+                .observe(this, o -> {
+                    int v= (int) o;
+                    JKit.log("接收22222:"+v);
+                });
     }
 
     @SuppressLint("CheckResult")
