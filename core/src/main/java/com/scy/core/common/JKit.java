@@ -79,7 +79,7 @@ public final class JKit extends ContentProvider {
         cacheDir= mApplication.getExternalCacheDir().getAbsolutePath();
         LiveEventBus.config().autoClear(true).enableLogger(debug)
                 .lifecycleObserverAlwaysActive(false)
-                .setContext(mApplication);
+                .setContext(mContext);
         return true;
     }
 
