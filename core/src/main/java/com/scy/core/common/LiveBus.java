@@ -9,7 +9,10 @@ import androidx.lifecycle.Observer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
+@Deprecated
+/**
+ * 用{@link com.jeremyliao.liveeventbus.LiveEventBus}代替
+ */
 public class LiveBus {
 
     private static volatile LiveBus instance;
